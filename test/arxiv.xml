@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <link href="http://arxiv.org/api/query?search_query%3D1301.7746%26id_list%3D%26start%3D0%26max_results%3D1" rel="self" type="application/atom+xml"/>
+  <title type="html">ArXiv Query: search_query=1301.7746&amp;id_list=&amp;start=0&amp;max_results=1</title>
+  <id>http://arxiv.org/api/NIaVv86zj4leHWkr6xTS1LwRjlw</id>
+  <updated>2013-02-02T00:00:00-05:00</updated>
+  <opensearch:totalResults xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">1</opensearch:totalResults>
+  <opensearch:startIndex xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">0</opensearch:startIndex>
+  <opensearch:itemsPerPage xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">1</opensearch:itemsPerPage>
+  <entry>
+    <id>http://arxiv.org/abs/1301.7746v1</id>
+    <updated>2013-01-31T20:46:12Z</updated>
+    <published>2013-01-31T20:46:12Z</published>
+    <title>Phases and phase transitions in disordered quantum systems</title>
+    <summary>  These lecture notes give a pedagogical introduction to phase transitions in
+disordered quantum systems and to the exotic Griffiths phases induced in their
+vicinity. We first review some fundamental concepts in the physics of phase
+transitions. We then derive criteria governing under what conditions spatial
+disorder or randomness can change the properties of a phase transition. After
+introducing the strong-disorder renormalization group method, we discuss in
+detail some of the exotic phenomena arising at phase transitions in disordered
+quantum systems. These include infinite-randomness criticality, rare regions
+and quantum Griffiths singularities, as well as the smearing of phase
+transitions. We also present a number of experimental examples.
+</summary>
+    <author>
+      <name>Thomas Vojta</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">Pedagogical introduction to strong disorder physics at quantum phase
+  transitions. Based on lectures given at the XVII Training Course in the
+  Physics of Strongly Correlated Systems in Vietri sul Mare, Italy in October
+  2012. Submitted to the proceedings of this school. 60 pages and 23 figures.
+  Builds on material reviewed in arXiv:cond-mat/0602312 and arXiv:1005.2707</arxiv:comment>
+    <link href="http://arxiv.org/abs/1301.7746v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/1301.7746v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cond-mat.dis-nn" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cond-mat.dis-nn" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cond-mat.str-el" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+</feed>
