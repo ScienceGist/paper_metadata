@@ -2,7 +2,6 @@ require 'paper_metadata/version'
 require 'nokogiri'
 require 'net/http'
 require 'open-uri'
-require 'pry'
 
 module PaperMetadata
   class << self
