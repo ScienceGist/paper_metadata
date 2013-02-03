@@ -21,7 +21,7 @@ module PaperMetadata
     end
 
     def metadata_for_doi(doi)
-      doc = Nokogiri::XML(open("http://www.crossref.org/openurl/?id=doi:#{doi}&noredirect=true&pid=#{PaperMetadata.doi_username}&format=unixref"))
+      doc = Nokogiri::XML(open("http://www.crossref.org/openurl/?id=#{doi.to_query}&noredirect=true&pid=#{PaperMetadata.doi_username}&format=unixref"))
       paper = Hash.new
 
       if doc.xpath("//titles/title").first
