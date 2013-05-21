@@ -2,6 +2,7 @@ require 'paper_metadata/version'
 require 'nokogiri'
 require 'net/http'
 require 'open-uri'
+require 'cgi'
 
 module PaperMetadata
   class << self
@@ -21,7 +22,7 @@ module PaperMetadata
     end
 
     def metadata_for_doi(doi)
-      doc = Nokogiri::XML(open("http://www.crossref.org/openurl/?id=#{doi.to_query}&noredirect=true&pid=#{PaperMetadata.doi_username}&format=unixref"))
+      doc = Nokogiri::XML(open("http://www.crossref.org/openurl/?id=#{CGI.escape(doi)}&noredirect=true&pid=#{PaperMetadata.doi_username}&format=unixref"))
       paper = Hash.new
 
       if doc.xpath("//titles/title").first
@@ -48,7 +49,7 @@ module PaperMetadata
 
     def metadata_for_arxiv(identifier)
       identifier.gsub!(/^arXiv\:/i, '')
-      url = URI.parse("http://export.arxiv.org/api/query?search_query=#{identifier}&start=0&max_results=1")
+      url = URI.parse("http://export.arxiv.org/api/query?search_query=#{CGI.escape(identifier)}&start=0&max_results=1")
       res = Net::HTTP.get_response(url)
       doc = Nokogiri::XML(res.body)
       doc.remove_namespaces!
