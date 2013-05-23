@@ -1,6 +1,6 @@
 # PaperMetadata
 
-PaperMetadata is a gem that gets a publication's metadata from by accessing the CrossRef OpenURL API.
+PaperMetadata is a gem that gets a publication's metadata by accessing the CrossRef OpenURL API.
 
 ## Installation
 
