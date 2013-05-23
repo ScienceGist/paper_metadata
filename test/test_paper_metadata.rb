@@ -10,6 +10,7 @@ class PaperMetadataTest < Test::Unit::TestCase
       to_return(:body => doi_response, :status => 200,  :headers => { 'Content-Length' => doi_response.length } )
 
     PaperMetadata.doi_username = 'test@example.com'
+
     assert_equal "Basic Modeling Approach To Optimize Elemental Imaging by Laser Ablation ICPMS",
       PaperMetadata.metadata_for('doi:10.1021/ac1014832')[:title]
   end
