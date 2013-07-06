@@ -3,6 +3,7 @@ require 'nokogiri'
 require 'net/http'
 require 'open-uri'
 require 'cgi'
+require 'uri'
 
 module PaperMetadata
   class << self
@@ -15,14 +16,14 @@ module PaperMetadata
 
     def metadata_for(identifier)
       if identifier =~ /^arxiv\:(.*)/i
-        metadata_for_arxiv($1)
+        metadata_for_arxiv($1.strip)
       elsif identifier =~ /^doi\:(.*)/i
-        metadata_for_doi($1)
+        metadata_for_doi($1.strip)
       end
     end
 
     def metadata_for_doi(doi)
-      doc = Nokogiri::XML(open("http://www.crossref.org/guestquery?queryType=doi&restype=unixref&doi=#{doi}&doi_search=Search"))
+      doc = Nokogiri::XML(open("http://www.crossref.org/guestquery?queryType=doi&restype=unixref&doi=#{URI.escape(doi)}&doi_search=Search"))
       paper = Hash.new
 
       doc = doc.css('table[name=doiresult]').first
