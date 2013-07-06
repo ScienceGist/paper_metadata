@@ -18,11 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-You must first configure PaperMetadata with your CrossRef API username (which you can obtain here [http://www.crossref.org/requestaccount/](http://www.crossref.org/requestaccount/)):
-
-    PaperMetadata.doi_username = 'email@example.com'
-
-You can then access API:
+You can use PaperMetadata like this:
 
     result = PaperMetadata.metadata_for('doi:10.1021/ac1014832')
 

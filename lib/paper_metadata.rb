@@ -14,16 +14,18 @@ module PaperMetadata
     end
 
     def metadata_for(identifier)
-      if identifier =~ /^arxiv\:/i
-        metadata_for_arxiv(identifier)
-      elsif identifier =~ /^doi\:/i
-        metadata_for_doi(identifier)
+      if identifier =~ /^arxiv\:(.*)/i
+        metadata_for_arxiv($1)
+      elsif identifier =~ /^doi\:(.*)/i
+        metadata_for_doi($1)
       end
     end
 
     def metadata_for_doi(doi)
-      doc = Nokogiri::XML(open("http://www.crossref.org/openurl/?id=#{CGI.escape(doi)}&noredirect=true&pid=#{PaperMetadata.doi_username}&format=unixref"))
+      doc = Nokogiri::XML(open("http://www.crossref.org/guestquery?queryType=doi&restype=unixref&doi=#{doi}&doi_search=Search"))
       paper = Hash.new
+
+      doc = doc.css('table[name=doiresult]').first
 
       if doc.xpath("//titles/title").first
         paper[:volume] = doc.xpath("//journal_issue/journal_volume/volume").inner_html.to_s
