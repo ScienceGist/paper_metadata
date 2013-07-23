@@ -4,7 +4,8 @@ require 'net/http'
 require 'open-uri'
 require 'cgi'
 require 'uri'
-
+require 'json'
+require 'pry'
 module PaperMetadata
   class << self
     attr_accessor :doi_username
@@ -45,7 +46,24 @@ module PaperMetadata
           doc.xpath("//journal_issue/publication_date/year").first.inner_html
         paper[:resource] = doc.xpath("//journal_article/doi_data/resource").inner_html
       else
-        paper[:status] = :NODOI
+        paper = metadata_for_doi_from_datacite(doi)
+      end
+      paper
+    end
+
+    def metadata_for_doi_from_datacite(doi)
+      paper = {}
+      response = JSON.parse(open("http://search.datacite.org/api?q=#{CGI.escape(doi)}&fl=doi,creator,title,publisher,publicationYear,datacentre&wt=json").read)
+      if response && response['response']['docs'] && response['response']['docs'].first['title']
+        result = response['response']['docs'].first
+        paper[:title] = result['title'].first
+        paper[:authors] = result['creator'].map{|c| c.split(', ').reverse.join(' ')}.join(', ')
+        paper[:published] = result['publicationYear']
+        paper[:publisher] = result['publisher']
+        paper[:datacentre] = result['datacentre']
+        paper[:journal] = 'DataCite'
+      else
+        {status: :NODOI}
       end
       paper
     end
