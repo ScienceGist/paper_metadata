@@ -5,7 +5,7 @@ require 'open-uri'
 require 'cgi'
 require 'uri'
 require 'json'
-require 'pry'
+
 module PaperMetadata
   class << self
     attr_accessor :doi_username
