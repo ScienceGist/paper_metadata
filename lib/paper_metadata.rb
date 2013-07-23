@@ -18,6 +18,8 @@ module PaperMetadata
     def metadata_for(identifier)
       if identifier =~ /^arxiv\:(.*)/i
         metadata_for_arxiv($1.strip)
+      elsif identifier =~ /^doi\:\s*(10\.6084\/.*)/i
+        metadata_for_doi_from_figshare($1.strip)
       elsif identifier =~ /^doi\:(.*)/i
         metadata_for_doi($1.strip)
       end
@@ -62,10 +64,26 @@ module PaperMetadata
         paper[:publisher] = result['publisher']
         paper[:datacentre] = result['datacentre']
         paper[:journal] = 'DataCite'
+        paper
       else
         {status: :NODOI}
       end
-      paper
+    end
+
+    def metadata_for_doi_from_figshare(doi)
+      paper = {}
+      response = JSON.parse(open("http://api.figshare.com/articles/#{doi}").read)
+
+      if response && response['items'] && response['items'].first
+        result = response['items'].first
+        paper[:title] = result['title']
+        paper[:authors] = result['authors'].map{|a| a['full_name']}.join(', ')
+        paper[:published] = result['published_date']
+        paper[:journal] = 'FigShare'
+        paper
+      else
+        {status: :NODOI}
+      end
     end
 
     def metadata_for_arxiv(identifier)

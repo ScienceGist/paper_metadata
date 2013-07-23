@@ -33,6 +33,20 @@ class PaperMetadataTest < Test::Unit::TestCase
     WebMock.disable_net_connect!
   end
 
+  def test_figshare_doi_parsing_live
+    WebMock.allow_net_connect!
+
+    metadata = PaperMetadata.metadata_for('doi:10.6084/m9.figshare.736442')
+    assert_equal "XML4NGS : A XML-based description of a Next-Generation sequencing project allowing the generation of a ’Makefile’-driven workflow.",
+      metadata[:title]
+
+    assert_equal "Pierre Lindenbaum, Raluca Teusan, Richard Redon, Audrey Bihouée, Solena LeScouarnec",
+      metadata[:authors]
+
+    WebMock.disable_net_connect!
+
+  end
+
   def test_arxiv_parsing
     arxiv_response = File.read(File.join(File.dirname(__FILE__), 'arxiv.xml'))
     stub_request(:any, /.*arxiv.org\/.*/).
