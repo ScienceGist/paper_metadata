@@ -29,13 +29,13 @@ class PaperMetadataTest < Test::Unit::TestCase
     stub_request(:any, /.*arxiv.org\/.*/).
       to_return(:body => arxiv_response, :status => 200,  :headers => { 'Content-Length' => arxiv_response.length } )
     assert_equal "Thomas Vojta",
-      PaperMetadata.metadata_for('arXiv:1301.7746')[:author]
+      PaperMetadata.metadata_for('arXiv:1301.7746')[:authors]
   end
 
   def test_arxiv_parsing_live
     WebMock.allow_net_connect!
     assert_equal "Thomas Vojta",
-      PaperMetadata.metadata_for('arXiv:1301.7746')[:author]
+      PaperMetadata.metadata_for('arXiv:1301.7746')[:authors]
     WebMock.disable_net_connect!
   end
 end

@@ -59,11 +59,12 @@ module PaperMetadata
       paper = Hash.new
       if entry = doc.xpath("//entry").first
         paper[:title] = entry.xpath('title').text
-        paper[:author] = entry.xpath('author').text.strip
+        paper[:authors] = entry.xpath('author').text.split("\n").map{|a| a.strip if a.strip != ""}.compact.join(', ')
         paper[:id] = entry.xpath('id').text
         paper[:updated] = entry.xpath('updated').text
         paper[:summary] = entry.xpath('summary').text
         paper[:published] = entry.xpath('published').text
+        paper[:journal] = 'arXiv'
       end
       paper
     end
