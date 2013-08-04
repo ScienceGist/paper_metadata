@@ -61,4 +61,10 @@ class PaperMetadataTest < Test::Unit::TestCase
       PaperMetadata.metadata_for('arXiv:1301.7746')[:authors]
     WebMock.disable_net_connect!
   end
+
+  def test_nonexistent_doi
+    WebMock.allow_net_connect!
+    assert_equal({status: :NODOI}, PaperMetadata.metadata_for('doi:thisdoi/doesntexist'))
+    WebMock.disable_net_connect!
+  end
 end

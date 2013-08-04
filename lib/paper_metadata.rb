@@ -56,7 +56,7 @@ module PaperMetadata
     def metadata_for_doi_from_datacite(doi)
       paper = {}
       response = JSON.parse(open("http://search.datacite.org/api?q=#{CGI.escape(doi)}&fl=doi,creator,title,publisher,publicationYear,datacentre&wt=json").read)
-      if response && response['response']['docs'] && response['response']['docs'].first['title']
+      if response && !response['response']['docs'].empty? && response['response']['docs'].first['title']
         result = response['response']['docs'].first
         paper[:title] = result['title'].first
         paper[:authors] = result['creator'].map{|c| c.split(', ').reverse.join(' ')}.join(', ')
